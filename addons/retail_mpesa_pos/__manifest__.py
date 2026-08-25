@@ -15,6 +15,7 @@
             "retail_mpesa_pos/static/src/js/mpesa_payment_popup.js",
             "retail_mpesa_pos/static/src/xml/mpesa_payment_popup.xml",
             "retail_mpesa_pos/static/src/js/payment_screen_mpesa.js",
+            "retail_mpesa_pos/static/src/js/pos_payment_receipt.js",
         ],
     },
     "installable": True,

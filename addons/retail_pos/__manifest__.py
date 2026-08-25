@@ -1,6 +1,6 @@
 {
     "name": "Tano Retail POS",
-    "summary": "Out-of-stock guard, VAT receipt details and return window for the tills",
+    "summary": "Out-of-stock guard and return window for the tills",
     "version": "18.0.1.0.0",
     "category": "Point of Sale",
     "license": "LGPL-3",
@@ -15,5 +15,5 @@
         ],
     },
     "installable": True,
-    "application": False,
+    "application": True,
 }

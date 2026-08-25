@@ -28,5 +28,5 @@ isolated behind fiscal.printer._send so it can be exercised without hardware.
         "views/menus.xml",
     ],
     "installable": True,
-    "application": False,
+    "application": True,
 }
