@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="retail_mpesa_pos.MpesaPaymentPopup">
+        <Dialog title="'Lipa na M-PESA'" size="'md'">
+            <div class="d-flex flex-column gap-3">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted">Amount due</span>
+                    <span class="fs-4 fw-bold" t-esc="props.amount"/>
+                </div>
+
+                <div class="btn-group w-100" role="group" t-if="props.allowStk">
+                    <button class="btn"
+                            t-att-class="state.mode === 'stk' ? 'btn-primary' : 'btn-outline-primary'"
+                            t-on-click="() => this.setMode('stk')">
+                        Send prompt to phone
+                    </button>
+                    <button class="btn"
+                            t-att-class="state.mode === 'manual' ? 'btn-primary' : 'btn-outline-primary'"
+                            t-on-click="() => this.setMode('manual')">
+                        Enter code
+                    </button>
+                </div>
+
+                <div t-if="state.mode === 'stk'">
+                    <label class="form-label" for="mpesa_phone">Customer phone number</label>
+                    <input id="mpesa_phone" type="tel" class="form-control"
+                           placeholder="07XX XXX XXX"
+                           t-model="state.phone"
+                           t-att-disabled="state.status === 'pushing' or state.status === 'waiting'"/>
+                    <small class="text-muted">
+                        The customer approves the payment on their handset.
+                    </small>
+                </div>
+
+                <div t-if="state.mode === 'manual'">
+                    <label class="form-label" for="mpesa_receipt">M-PESA confirmation code</label>
+                    <input id="mpesa_receipt" type="text" class="form-control text-uppercase"
+                           placeholder="SHX7YU9823"
+                           t-model="state.receipt"
+                           t-att-disabled="state.status === 'pushing'"/>
+                    <small class="text-muted">
+                        Use this when the customer paid the till directly.
+                    </small>
+                </div>
+
+                <div t-if="state.message"
+                     class="alert mb-0"
+                     t-att-class="state.status === 'error' ? 'alert-danger' : 'alert-info'">
+                    <span t-esc="state.message"/>
+                </div>
+
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-primary"
+                        t-att-disabled="!canSubmit"
+                        t-on-click="confirm">
+                    <t t-if="state.mode === 'stk'">Send request</t>
+                    <t t-else="">Confirm payment</t>
+                </button>
+                <button class="btn btn-secondary" t-on-click="cancel">Cancel</button>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>

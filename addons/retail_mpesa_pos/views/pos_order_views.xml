@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_order_form_mpesa" model="ir.ui.view">
+        <field name="name">pos.order.form.mpesa</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_ids']/list" position="inside">
+                <field name="retail_mpesa_receipt" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
