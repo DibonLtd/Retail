@@ -23,12 +23,38 @@ class TestClassification(FiscalCase):
         template.taxes_id = [(6, 0, [self.tax_standard.id])]
         self.assertEqual(template.factor_type, "taxable")
 
-    def test_two_sales_taxes_are_refused(self):
+    def test_two_sales_taxes_are_refused_when_fiscalising(self):
         """A fiscal receipt reports one rate per line."""
         with self.assertRaises(ValidationError):
             self.royco.product_tmpl_id.taxes_id = [
                 (6, 0, [self.tax_standard.id, self.tax_zero.id])
             ]
+
+    def test_two_sales_taxes_are_allowed_when_not_fiscalising(self):
+        """Installing this module must not break products elsewhere.
+
+        Odoo's own defaults and genuinely multi-taxed products have to keep
+        working for companies that do not run a fiscal device.
+        """
+        self.company.retail_fiscal_enabled = False
+        self.royco.product_tmpl_id.taxes_id = [
+            (6, 0, [self.tax_standard.id, self.tax_zero.id])
+        ]
+        self.assertEqual(len(self.royco.product_tmpl_id.taxes_id), 2)
+
+    def test_multi_tax_line_is_refused_at_payload_build(self):
+        """The real constraint applies where a receipt is actually built."""
+        from odoo.exceptions import UserError
+
+        self.company.retail_fiscal_enabled = False
+        self.royco.product_tmpl_id.taxes_id = [
+            (6, 0, [self.tax_standard.id, self.tax_zero.id])
+        ]
+        session = self._open_session()
+        order = self._order(session, [(self.royco, 1)])
+        self.company.retail_fiscal_enabled = True
+        with self.assertRaises(UserError):
+            order._build_fiscal_payload()
 
     def test_untaxed_product_has_no_classification(self):
         template = self.royco.product_tmpl_id

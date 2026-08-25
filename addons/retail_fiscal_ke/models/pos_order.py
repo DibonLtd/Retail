@@ -50,6 +50,18 @@ class PosOrder(models.Model):
         values = []
         for line in self.lines:
             product = line.product_id
+            if len(line.tax_ids) > 1:
+                # Checked here rather than on every product write: this is the
+                # point at which a second rate genuinely cannot be expressed.
+                raise UserError(
+                    self.env._(
+                        "%s carries more than one tax, which a fiscal receipt "
+                        "cannot express. Correct the product's taxes before "
+                        "fiscalising order %s.",
+                        product.display_name,
+                        self.name,
+                    )
+                )
             tax = line.tax_ids[:1]
             factor = product.product_tmpl_id.factor_type or "exempted"
             hs_code = product.product_tmpl_id.hscode_index

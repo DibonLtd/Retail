@@ -20,6 +20,10 @@ class PurchaseRequestCase(TransactionCase):
                 "is_storable": True,
                 "standard_price": 1200.0,
                 "list_price": 1500.0,
+                # Explicit, so the fixture does not inherit whatever sales
+                # taxes the company's localisation happens to default to.
+                "taxes_id": [(5, 0, 0)],
+                "supplier_taxes_id": [(5, 0, 0)],
             }
         )
 

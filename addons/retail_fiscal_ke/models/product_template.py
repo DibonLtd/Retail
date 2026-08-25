@@ -30,17 +30,21 @@ class ProductTemplate(models.Model):
     def _check_single_sales_tax(self):
         """A fiscal device reports one rate per line.
 
-        Two sales taxes on one product cannot be expressed on a fiscal
-        receipt, so this is refused at the source rather than producing an
-        unprintable order later.
+        Scoped to companies that actually fiscalise. Enforcing this on every
+        product would mean that merely installing this module broke product
+        creation everywhere, including Odoo's own defaults and products that
+        legitimately carry more than one tax.
         """
         for product in self:
+            company = product.company_id or self.env.company
+            if not company.retail_fiscal_enabled:
+                continue
             if len(product.taxes_id) > 1:
                 raise ValidationError(
                     self.env._(
                         "%s has more than one sales tax. A fiscal receipt "
                         "reports a single rate per line, so exactly one tax "
-                        "is allowed.",
+                        "is allowed while fiscal printing is enabled.",
                         product.display_name,
                     )
                 )

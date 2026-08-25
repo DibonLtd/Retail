@@ -19,7 +19,12 @@ class RequisitionCase(TransactionCase):
     @classmethod
     def _make_product(cls, name):
         return cls.env["product.product"].create(
-            {"name": name, "type": "consu", "is_storable": True}
+            {
+                "name": name,
+                "type": "consu",
+                "is_storable": True,
+                "taxes_id": [(5, 0, 0)],
+            }
         )
 
     @classmethod
