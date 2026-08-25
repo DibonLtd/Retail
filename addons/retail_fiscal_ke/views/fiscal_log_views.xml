@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fiscal_log_list" model="ir.ui.view">
+        <field name="name">fiscal.log.list</field>
+        <field name="model">fiscal.log</field>
+        <field name="arch" type="xml">
+            <list string="Fiscal Log" create="false">
+                <field name="create_date" string="Sent"/>
+                <field name="pos_order_id"/>
+                <field name="config_id"/>
+                <field name="printer_id"/>
+                <field name="fiscal_receipt_no"/>
+                <field name="user_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'sent'"
+                       decoration-warning="state == 'pending'"
+                       decoration-danger="state == 'failed'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_fiscal_log_form" model="ir.ui.view">
+        <field name="name">fiscal.log.form</field>
+        <field name="model">fiscal.log</field>
+        <field name="arch" type="xml">
+            <form string="Fiscal Log" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="pos_order_id"/>
+                            <field name="printer_id"/>
+                            <field name="endpoint"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="fiscal_receipt_no"/>
+                            <field name="cu_serial_number"/>
+                            <field name="cu_invoice_number"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Payload" name="payload">
+                            <field name="payload" readonly="1"/>
+                        </page>
+                        <page string="Response" name="response">
+                            <field name="response" readonly="1"/>
+                            <field name="error_response" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fiscal_log" model="ir.actions.act_window">
+        <field name="name">Fiscal Log</field>
+        <field name="res_model">fiscal.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fiscal_printer_finance,fiscal.printer.finance,model_fiscal_printer,retail_base.group_finance_officer,1,1,1,1
+access_fiscal_printer_pos_manager,fiscal.printer.pos.manager,model_fiscal_printer,point_of_sale.group_pos_manager,1,0,0,0
+access_fiscal_printer_pos_user,fiscal.printer.pos.user,model_fiscal_printer,point_of_sale.group_pos_user,1,0,0,0
+access_fiscal_log_finance,fiscal.log.finance,model_fiscal_log,retail_base.group_finance_officer,1,1,1,1
+access_fiscal_log_pos_manager,fiscal.log.pos.manager,model_fiscal_log,point_of_sale.group_pos_manager,1,0,0,0
+access_fiscal_log_pos_user,fiscal.log.pos.user,model_fiscal_log,point_of_sale.group_pos_user,1,1,1,0

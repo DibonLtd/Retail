@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_fiscal_root" name="Fiscal"
+              parent="point_of_sale.menu_point_root"
+              sequence="90" groups="point_of_sale.group_pos_manager"/>
+    <menuitem id="menu_fiscal_log" name="Fiscal Log"
+              parent="menu_fiscal_root"
+              action="action_fiscal_log" sequence="10"/>
+    <menuitem id="menu_fiscal_printer" name="Fiscal Printers"
+              parent="menu_fiscal_root"
+              action="action_fiscal_printer" sequence="20"
+              groups="retail_base.group_finance_officer"/>
+</odoo>
