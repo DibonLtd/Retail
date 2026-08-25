@@ -9,5 +9,6 @@ venv/
 .vscode/
 *.sqlite
 
-# Claude Code working documents (specs, plans) - local only
-docs/superpowers/
+# Documents are local only: specs, plans and UAT workbooks are deliverables
+# handed over directly, not versioned with the addons.
+docs/
