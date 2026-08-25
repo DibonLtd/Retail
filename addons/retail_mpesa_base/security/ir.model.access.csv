@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mpesa_config_finance,mpesa.config.finance,model_mpesa_config,retail_base.group_finance_officer,1,1,1,1
+access_mpesa_config_pos_manager,mpesa.config.pos.manager,model_mpesa_config,point_of_sale.group_pos_manager,1,0,0,0
+access_mpesa_txn_finance,mpesa.transaction.finance,model_mpesa_transaction,retail_base.group_finance_officer,1,1,1,1
+access_mpesa_txn_pos_user,mpesa.transaction.pos.user,model_mpesa_transaction,point_of_sale.group_pos_user,1,1,1,0

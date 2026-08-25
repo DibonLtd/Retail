@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_mpesa_root" name="M-PESA" parent="account.menu_finance"
+              sequence="80" groups="retail_base.group_finance_officer"/>
+    <menuitem id="menu_mpesa_transactions" name="Transactions"
+              parent="menu_mpesa_root" action="action_mpesa_transaction" sequence="10"/>
+    <menuitem id="menu_mpesa_configuration" name="Configuration"
+              parent="menu_mpesa_root" action="action_mpesa_config" sequence="90"/>
+</odoo>

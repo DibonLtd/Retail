@@ -25,30 +25,37 @@ class PosReportCase(TransactionCase):
 
         cls.config = cls.env["pos.config"].create({"name": "Westgate Till 3"})
 
-        cls.method_cash = cls.env["pos.payment.method"].search(
-            [("is_cash_count", "=", True)], limit=1
+        # Odoo 18 refuses to share a cash payment method between two POS
+        # configs, so this fixture owns its own cash journal and method.
+        cash_journal = cls.env["account.journal"].create(
+            {
+                "name": "Tano Report Test Cash",
+                "type": "cash",
+                "code": "TRTC",
+                "company_id": cls.env.company.id,
+            }
         )
-        if not cls.method_cash:
-            cls.method_cash = cls.env["pos.payment.method"].create(
-                {
-                    "name": "Cash",
-                    "journal_id": cls._cash_journal().id,
-                }
-            )
+        cls.method_cash = cls.env["pos.payment.method"].create(
+            {
+                "name": "Cash (report test)",
+                "journal_id": cash_journal.id,
+                "company_id": cls.env.company.id,
+            }
+        )
         cls.method_mpesa = cls.env["pos.payment.method"].create(
-            {"name": "Lipa na M-PESA", "retail_payment_bucket": "mpesa"}
+            {
+                "name": "Lipa na M-PESA",
+                "retail_payment_bucket": "mpesa",
+                "company_id": cls.env.company.id,
+            }
         )
-        cls.method_card = cls.env["pos.payment.method"].create({"name": "Equity Card"})
+        cls.method_card = cls.env["pos.payment.method"].create(
+            {"name": "Equity Card", "company_id": cls.env.company.id}
+        )
 
         cls.config.payment_method_ids = [
             (6, 0, [cls.method_cash.id, cls.method_mpesa.id, cls.method_card.id])
         ]
-
-    @classmethod
-    def _cash_journal(cls):
-        return cls.env["account.journal"].search(
-            [("type", "=", "cash"), ("company_id", "=", cls.env.company.id)], limit=1
-        )
 
     @classmethod
     def _make_product(cls, name, price, barcode, categ_xmlid):
@@ -113,7 +120,9 @@ class PosReportCase(TransactionCase):
         order.write({"state": "done"})
         if order_date:
             # date_order is readonly, so it is set through SQL to place the
-            # order on a specific trading day.
+            # order on a specific trading day. The record must be flushed
+            # first, or the UPDATE matches no rows.
+            self.env.flush_all()
             self.env.cr.execute(
                 "UPDATE pos_order SET date_order = %s WHERE id = %s",
                 (order_date, order.id),

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mpesa_transaction_list" model="ir.ui.view">
+        <field name="name">mpesa.transaction.list</field>
+        <field name="model">mpesa.transaction</field>
+        <field name="arch" type="xml">
+            <list string="M-PESA Transactions" create="false">
+                <field name="create_date" string="Recorded"/>
+                <field name="receipt_number"/>
+                <field name="reference"/>
+                <field name="phone"/>
+                <field name="amount" sum="Total"/>
+                <field name="origin"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'success'"
+                       decoration-warning="state == 'pending'"
+                       decoration-danger="state in ('failed', 'cancelled', 'timeout')"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mpesa_transaction_form" model="ir.ui.view">
+        <field name="name">mpesa.transaction.form</field>
+        <field name="model">mpesa.transaction</field>
+        <field name="arch" type="xml">
+            <form string="M-PESA Transaction" create="false" edit="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="receipt_number" readonly="1" placeholder="Pending"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="phone"/>
+                            <field name="reference"/>
+                            <field name="origin"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="result_code"/>
+                            <field name="result_description"/>
+                            <field name="transaction_date"/>
+                            <field name="config_id"/>
+                        </group>
+                    </group>
+                    <notebook groups="retail_base.group_finance_officer">
+                        <page string="Daraja Identifiers" name="ids">
+                            <group>
+                                <field name="checkout_request_id"/>
+                                <field name="merchant_request_id"/>
+                            </group>
+                        </page>
+                        <page string="Raw Payloads" name="raw">
+                            <field name="raw_request" readonly="1"/>
+                            <field name="raw_response" readonly="1"/>
+                            <field name="callback_payload" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mpesa_transaction" model="ir.actions.act_window">
+        <field name="name">M-PESA Transactions</field>
+        <field name="res_model">mpesa.transaction</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

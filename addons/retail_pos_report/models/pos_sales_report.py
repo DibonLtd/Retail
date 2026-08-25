@@ -130,6 +130,10 @@ class PosSalesReport(models.Model):
         return self.env.user.tz or "UTC"
 
     def action_generate(self):
+        # Aggregation runs in raw SQL, which bypasses the ORM's pending-write
+        # buffer. Without this flush the report would silently miss any POS
+        # order created or amended earlier in the same transaction.
+        self.env.flush_all()
         for report in self:
             report.daily_line_ids.unlink()
             report.item_line_ids.unlink()
@@ -230,7 +234,7 @@ class PosSalesReport(models.Model):
                     "report_id": self.id,
                     "product_id": product_id,
                     "categ_id": category.id,
-                    "department_id": self._root_category(category).id,
+                    "department_id": self._department_category(category).id,
                     "barcode": product.barcode or "",
                     "qty_sold": qty or 0.0,
                     "price_unit": (total_incl / qty) if qty else 0.0,
@@ -242,10 +246,17 @@ class PosSalesReport(models.Model):
         self.env["pos.sales.item.line"].create(rows)
 
     @staticmethod
-    def _root_category(category):
-        """Return the top-level ancestor of ``category``, which is the department."""
+    def _department_category(category):
+        """Return the department for ``category``.
+
+        Every Odoo category descends from the catalogue root ("All"), so the
+        literal top-level ancestor is always "All" and useless as a
+        department. The department is the topmost ancestor *beneath* that
+        root: Flour & Grains -> Dry Foods, and a product filed directly in
+        Dry Foods is its own department.
+        """
         current = category
-        while current.parent_id:
+        while current.parent_id and current.parent_id.parent_id:
             current = current.parent_id
         return current
 

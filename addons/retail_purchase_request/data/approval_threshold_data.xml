@@ -6,7 +6,7 @@
 
       Note: the US-PRQ-03 narrative instead states that CFO approval applies
       above KES 500,000, contradicting its own acceptance criteria. Because
-      these bands are data, correcting them is a configuration change -- add
+      these bands are data, correcting them is a configuration change: add
       or edit a threshold record rather than changing code.
     -->
     <record id="threshold_procurement_all" model="retail.approval.threshold">

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mpesa_config_form" model="ir.ui.view">
+        <field name="name">mpesa.config.form</field>
+        <field name="model">mpesa.config</field>
+        <field name="arch" type="xml">
+            <form string="M-PESA Configuration">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Lipa na M-PESA"/></h1>
+                    </div>
+                    <div class="alert alert-warning" role="alert" invisible="credentials_ready">
+                        <strong>Credentials not set.</strong>
+                        Store the Daraja consumer key, secret and passkey as system
+                        parameters using the names below. Secrets are never held on
+                        this record.
+                    </div>
+                    <group>
+                        <group string="Till">
+                            <field name="shortcode" placeholder="174379"/>
+                            <field name="account_reference"/>
+                            <field name="environment"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Callbacks">
+                            <field name="callback_base_url" placeholder="https://erp.example.co.ke"/>
+                            <field name="credentials_ready" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Credential Parameter Names">
+                        <field name="consumer_key_param"/>
+                        <field name="consumer_secret_param"/>
+                        <field name="passkey_param"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mpesa_config_list" model="ir.ui.view">
+        <field name="name">mpesa.config.list</field>
+        <field name="model">mpesa.config</field>
+        <field name="arch" type="xml">
+            <list string="M-PESA Configurations">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="shortcode"/>
+                <field name="environment"/>
+                <field name="credentials_ready" widget="boolean_toggle" readonly="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_mpesa_config" model="ir.actions.act_window">
+        <field name="name">M-PESA Configuration</field>
+        <field name="res_model">mpesa.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
