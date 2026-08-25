@@ -1,2 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo/>
+<odoo noupdate="1">
+    <record id="loyalty_tano_points" model="loyalty.program">
+        <field name="name">Tano Points</field>
+        <field name="program_type">loyalty</field>
+        <field name="trigger">auto</field>
+        <field name="portal_visible" eval="True"/>
+        <field name="portal_point_name">Points</field>
+    </record>
+
+    <!-- Earn: 0.1 points per currency unit spent, i.e. 1 point per KES 10. -->
+    <record id="loyalty_tano_points_rule" model="loyalty.rule">
+        <field name="program_id" ref="loyalty_tano_points"/>
+        <field name="reward_point_mode">money</field>
+        <field name="reward_point_amount">0.1</field>
+    </record>
+
+    <!-- Redeem: each point is worth KES 0.10, so 340 points equals KES 34. -->
+    <record id="loyalty_tano_points_reward" model="loyalty.reward">
+        <field name="program_id" ref="loyalty_tano_points"/>
+        <field name="reward_type">discount</field>
+        <field name="discount_mode">per_point</field>
+        <field name="discount">0.1</field>
+        <field name="required_points">1</field>
+    </record>
+</odoo>

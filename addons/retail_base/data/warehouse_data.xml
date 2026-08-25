@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo/>
+<odoo noupdate="1">
+    <record id="warehouse_central" model="stock.warehouse">
+        <field name="name">Central Warehouse</field>
+        <field name="code">CW</field>
+    </record>
+
+    <record id="warehouse_westgate" model="stock.warehouse">
+        <field name="name">Westgate Branch</field>
+        <field name="code">WGT</field>
+    </record>
+
+    <record id="warehouse_thika_road" model="stock.warehouse">
+        <field name="name">Thika Road Mall Branch</field>
+        <field name="code">TRM</field>
+    </record>
+
+    <record id="warehouse_junction" model="stock.warehouse">
+        <field name="name">Junction Branch</field>
+        <field name="code">JCT</field>
+    </record>
+
+    <record id="warehouse_city_mall" model="stock.warehouse">
+        <field name="name">City Mall Branch</field>
+        <field name="code">CTM</field>
+    </record>
+</odoo>

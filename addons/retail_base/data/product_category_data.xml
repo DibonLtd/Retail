@@ -1,2 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo/>
+<odoo noupdate="1">
+    <record id="categ_dry_foods" model="product.category">
+        <field name="name">Dry Foods</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+    </record>
+    <record id="categ_flour_grains" model="product.category">
+        <field name="name">Flour &amp; Grains</field>
+        <field name="parent_id" ref="categ_dry_foods"/>
+    </record>
+
+    <record id="categ_dairy" model="product.category">
+        <field name="name">Dairy</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+    </record>
+    <record id="categ_fresh_dairy" model="product.category">
+        <field name="name">Fresh Dairy</field>
+        <field name="parent_id" ref="categ_dairy"/>
+    </record>
+
+    <record id="categ_household" model="product.category">
+        <field name="name">Household</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+    </record>
+    <record id="categ_cleaning" model="product.category">
+        <field name="name">Cleaning</field>
+        <field name="parent_id" ref="categ_household"/>
+    </record>
+
+    <record id="categ_personal_care" model="product.category">
+        <field name="name">Personal Care</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+    </record>
+    <record id="categ_oral_care" model="product.category">
+        <field name="name">Oral Care</field>
+        <field name="parent_id" ref="categ_personal_care"/>
+    </record>
+</odoo>
