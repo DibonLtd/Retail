@@ -15,6 +15,7 @@
         "security/retail_groups.xml",
         "security/ir.model.access.csv",
         "views/res_users_views.xml",
+        "views/pos_payment_method_views.xml",
         "data/warehouse_data.xml",
         "data/product_category_data.xml",
         "data/loyalty_program_data.xml",

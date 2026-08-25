@@ -1,0 +1,24 @@
+; Example Odoo 18 configuration for the Tano Retail addons.
+;
+; Copy to odoo.conf and edit the paths for your instance. This file is a
+; development convenience only -- the addons themselves contain no
+; machine-specific configuration and run on any Odoo 18 CE instance.
+
+[options]
+
+; Append the repository's addons directory to your existing addons_path.
+addons_path = /path/to/odoo/addons,/path/to/Retail/addons
+
+db_host = localhost
+db_port = 5432
+db_user = odoo
+db_password = False
+
+http_port = 8069
+log_level = info
+
+; Set True in production behind a TLS reverse proxy.
+proxy_mode = False
+
+; Production: raise above 0 to enable multiprocessing.
+workers = 0

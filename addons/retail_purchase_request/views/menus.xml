@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_retail_purchase_request"
+              name="Purchase Requests"
+              parent="purchase.menu_procurement_management"
+              action="action_retail_purchase_request"
+              sequence="5"/>
+    <menuitem id="menu_retail_approval_threshold"
+              name="Approval Thresholds"
+              parent="purchase.menu_purchase_config"
+              action="action_retail_approval_threshold"
+              sequence="90"
+              groups="retail_base.group_finance_officer"/>
+</odoo>

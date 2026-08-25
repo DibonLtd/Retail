@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_form_retail_approval" model="ir.ui.view">
+        <field name="name">purchase.order.form.retail.approval</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_retail_approve" type="object"
+                        string="Approve (Retail)" class="btn-secondary"
+                        invisible="retail_approval_state != 'pending' or state not in ('draft', 'sent')"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="retail_request_id" readonly="1"
+                       invisible="not retail_request_id"/>
+                <field name="retail_approval_state" readonly="1"/>
+                <field name="retail_required_group_ids" widget="many2many_tags"
+                       readonly="1" invisible="retail_approval_state == 'not_required'"/>
+                <field name="retail_missing_group_ids" widget="many2many_tags"
+                       readonly="1" invisible="retail_approval_state != 'pending'"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Retail Approvals" name="retail_approvals"
+                      invisible="retail_approval_state == 'not_required'">
+                    <field name="retail_approval_ids" readonly="1">
+                        <list>
+                            <field name="group_id"/>
+                            <field name="user_id"/>
+                            <field name="approval_date"/>
+                            <field name="amount_approved"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

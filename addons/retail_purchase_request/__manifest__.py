@@ -1,0 +1,22 @@
+{
+    "name": "Tano Retail Purchase Request",
+    "summary": "Purchase requests with threshold-based multi-level approval",
+    "version": "18.0.1.0.0",
+    "category": "Purchases",
+    "license": "LGPL-3",
+    "author": "Dibon",
+    "depends": ["retail_base", "purchase"],
+    "data": [
+        "security/ir.model.access.csv",
+        "security/purchase_request_rules.xml",
+        "data/ir_sequence.xml",
+        "data/approval_threshold_data.xml",
+        "wizard/reject_wizard_views.xml",
+        "views/approval_threshold_views.xml",
+        "views/purchase_request_views.xml",
+        "views/purchase_order_views.xml",
+        "views/menus.xml",
+    ],
+    "installable": True,
+    "application": False,
+}

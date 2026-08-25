@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_sales_report_form" model="ir.ui.view">
+        <field name="name">pos.sales.report.form</field>
+        <field name="model">pos.sales.report</field>
+        <field name="arch" type="xml">
+            <form string="POS Sales Summary">
+                <header>
+                    <button name="action_generate" type="object" string="Generate"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="config_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="grand_total_sales"/>
+                            <field name="grand_total_mpesa"/>
+                            <field name="grand_total_cash"/>
+                            <field name="grand_total_other"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Daily Summary" name="daily">
+                            <field name="daily_line_ids" readonly="1">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="total_sales" sum="Total"/>
+                                    <field name="mpesa_amount" sum="M-PESA"/>
+                                    <field name="cash_amount" sum="Cash"/>
+                                    <field name="other_amount" sum="Other"/>
+                                    <field name="rank"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Sales by Item" name="items">
+                            <field name="item_line_ids" readonly="1">
+                                <list>
+                                    <field name="department_id"/>
+                                    <field name="categ_id"/>
+                                    <field name="product_id"/>
+                                    <field name="barcode"/>
+                                    <field name="qty_sold" sum="Qty"/>
+                                    <field name="price_unit"/>
+                                    <field name="total_sales" sum="Total"/>
+                                    <field name="amount_tax_excluded" sum="Tax Excl."/>
+                                    <field name="amount_vat" sum="VAT"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_pos_sales_report_list" model="ir.ui.view">
+        <field name="name">pos.sales.report.list</field>
+        <field name="model">pos.sales.report</field>
+        <field name="arch" type="xml">
+            <list string="POS Sales Summaries">
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="grand_total_sales" sum="Total"/>
+                <field name="grand_total_mpesa" sum="M-PESA"/>
+                <field name="grand_total_cash" sum="Cash"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'generated'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_pos_sales_report" model="ir.actions.act_window">
+        <field name="name">Sales Summary Report</field>
+        <field name="res_model">pos.sales.report</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Generate a sales summary</p>
+            <p>Daily revenue with M-PESA, cash and other payment splits, plus a
+               per-item breakdown by department.</p>
+        </field>
+    </record>
+</odoo>

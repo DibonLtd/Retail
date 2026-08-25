@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_pos_sales_report"
+              name="Sales Summary Report"
+              parent="point_of_sale.menu_point_rep"
+              action="action_pos_sales_report"
+              sequence="20"/>
+</odoo>
