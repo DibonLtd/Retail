@@ -8,3 +8,6 @@ venv/
 .idea/
 .vscode/
 *.sqlite
+
+# Claude Code working documents (specs, plans) - local only
+docs/superpowers/

@@ -148,15 +148,11 @@ socket to a fiscal device.
    the customer can pay with no pending row for the callback to match. The
    out-of-band pattern used in `retail_fiscal_ke` would remove the risk.
 5. **The source document's VAT figures do not reconcile** and US-PRQ-03
-   contradicts its own acceptance criteria. Both are recorded in the spec;
-   thresholds are seeded from the acceptance criteria.
+   contradicts its own acceptance criteria. Thresholds are seeded from the
+   acceptance criteria, and the discrepancy is noted in
+   `addons/retail_purchase_request/data/approval_threshold_data.xml`.
 
 ---
-
-## Documentation
-
-- Design specification: `docs/superpowers/specs/2026-08-25-tano-retail-odoo18-design.md`
-- Phase 1 implementation plan: `docs/superpowers/plans/2026-08-25-phase1-base-and-requisition.md`
 
 ---
 
