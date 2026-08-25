@@ -1,0 +1,24 @@
+{
+    "name": "Tano Retail Base",
+    "summary": "Foundation data, branches and security groups for Tano Supermarket",
+    "version": "18.0.1.0.0",
+    "category": "Inventory",
+    "license": "LGPL-3",
+    "author": "Dibon",
+    "depends": [
+        "base",
+        "stock",
+        "point_of_sale",
+        "loyalty",
+    ],
+    "data": [
+        "security/retail_groups.xml",
+        "security/ir.model.access.csv",
+        "views/res_users_views.xml",
+        "data/warehouse_data.xml",
+        "data/product_category_data.xml",
+        "data/loyalty_program_data.xml",
+    ],
+    "installable": True,
+    "application": False,
+}

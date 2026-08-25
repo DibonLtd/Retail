@@ -1,0 +1,7 @@
+# Odoo 18 CE core requirements install separately from the Odoo source tree:
+#   pip install -r <odoo-source>/requirements.txt
+# Listed below are only the extra dependencies introduced by Tano Retail modules.
+xlsxwriter>=3.1.0
+xmltodict>=0.13.0
+pyqrcode>=1.2.1
+pypng>=0.20220715.0
