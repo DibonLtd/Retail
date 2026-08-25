@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_retail_requisition_root"
+              name="Stock Requisitions"
+              parent="stock.menu_stock_root"
+              sequence="15"/>
+    <menuitem id="menu_retail_requisition_all"
+              name="Requisitions"
+              parent="menu_retail_requisition_root"
+              action="action_retail_stock_requisition"
+              sequence="10"/>
+</odoo>

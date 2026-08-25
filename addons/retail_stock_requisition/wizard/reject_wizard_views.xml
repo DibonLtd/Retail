@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_requisition_reject_wizard_form" model="ir.ui.view">
+        <field name="name">retail.requisition.reject.wizard.form</field>
+        <field name="model">retail.requisition.reject.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reject Requisition">
+                <group>
+                    <field name="reason"
+                           placeholder="State why this requisition is being rejected."/>
+                </group>
+                <footer>
+                    <button name="action_confirm_rejection" type="object"
+                            string="Confirm Rejection" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

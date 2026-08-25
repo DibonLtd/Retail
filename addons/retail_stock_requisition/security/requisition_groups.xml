@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="rule_requisition_own_branches" model="ir.rule">
+        <field name="name">Requisitions: own branches only</field>
+        <field name="model_id" ref="model_retail_stock_requisition"/>
+        <field name="domain_force">['|', ('requestor_id', '=', user.id), ('dest_warehouse_id', 'in', user.retail_warehouse_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('point_of_sale.group_pos_manager'))]"/>
+    </record>
+
+    <record id="rule_requisition_head_office" model="ir.rule">
+        <field name="name">Requisitions: head office sees all</field>
+        <field name="model_id" ref="model_retail_stock_requisition"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('retail_base.group_supply_chain_officer')), (4, ref('retail_base.group_finance_officer'))]"/>
+    </record>
+</odoo>

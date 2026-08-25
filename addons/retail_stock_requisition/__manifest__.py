@@ -1,0 +1,20 @@
+{
+    "name": "Tano Retail Stock Requisition",
+    "summary": "Branch stock requisition with supply chain and finance approval",
+    "version": "18.0.1.0.0",
+    "category": "Inventory",
+    "license": "LGPL-3",
+    "author": "Dibon",
+    "depends": ["retail_base", "stock", "mail"],
+    "data": [
+        "security/ir.model.access.csv",
+        "security/requisition_groups.xml",
+        "data/ir_sequence.xml",
+        "data/mail_templates.xml",
+        "wizard/reject_wizard_views.xml",
+        "views/requisition_views.xml",
+        "views/menus.xml",
+    ],
+    "installable": True,
+    "application": True,
+}

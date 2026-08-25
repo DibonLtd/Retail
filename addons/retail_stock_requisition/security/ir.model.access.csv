@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_requisition_pos_manager,requisition.pos.manager,model_retail_stock_requisition,point_of_sale.group_pos_manager,1,1,1,0
+access_requisition_supply_chain,requisition.supply.chain,model_retail_stock_requisition,retail_base.group_supply_chain_officer,1,1,1,0
+access_requisition_finance,requisition.finance,model_retail_stock_requisition,retail_base.group_finance_officer,1,1,1,0
+access_requisition_line_pos_manager,requisition.line.pos.manager,model_retail_stock_requisition_line,point_of_sale.group_pos_manager,1,1,1,1
+access_requisition_line_supply_chain,requisition.line.supply.chain,model_retail_stock_requisition_line,retail_base.group_supply_chain_officer,1,1,1,1
+access_requisition_line_finance,requisition.line.finance,model_retail_stock_requisition_line,retail_base.group_finance_officer,1,1,1,1
+access_reject_wizard_supply_chain,reject.wizard.supply.chain,model_retail_requisition_reject_wizard,retail_base.group_supply_chain_officer,1,1,1,1
+access_reject_wizard_finance,reject.wizard.finance,model_retail_requisition_reject_wizard,retail_base.group_finance_officer,1,1,1,1
+access_reject_wizard_pos_manager,reject.wizard.pos.manager,model_retail_requisition_reject_wizard,point_of_sale.group_pos_manager,1,1,1,1
