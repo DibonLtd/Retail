@@ -11,10 +11,15 @@ import pathlib
 import sys
 from xml.etree import ElementTree
 
-ADDONS = pathlib.Path(__file__).resolve().parent.parent / "addons"
+REPO = pathlib.Path(__file__).resolve().parent.parent
+# Modules live at the repository root, so skip the directories that are not modules.
+SKIP = {".git", ".github", "config", "docs", "scripts", "__pycache__"}
 problems = []
 
-modules = sorted(p for p in ADDONS.iterdir() if p.is_dir() and (p / "__manifest__.py").exists())
+modules = sorted(
+    p for p in REPO.iterdir()
+    if p.is_dir() and p.name not in SKIP and (p / "__manifest__.py").exists()
+)
 
 for module in modules:
     # Manifest must be a literal dict.

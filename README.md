@@ -12,11 +12,11 @@ and install on any Odoo 18 CE instance. Nothing depends on Odoo Enterprise.
 
 ## Installation
 
-1. Add this repository's `addons/` directory to `addons_path` in your
-   `odoo.conf`:
+1. Add this repository to `addons_path` in your `odoo.conf`. The modules sit
+   at the repository root, so point at the repository itself:
 
    ```ini
-   addons_path = /opt/odoo/addons,/srv/Retail/addons
+   addons_path = /opt/odoo/addons,/srv/Retail
    ```
 
 2. Restart Odoo and update the apps list.
@@ -150,9 +150,7 @@ socket to a fiscal device.
 5. **The source document's VAT figures do not reconcile** and US-PRQ-03
    contradicts its own acceptance criteria. Thresholds are seeded from the
    acceptance criteria, and the discrepancy is noted in
-   `addons/retail_purchase_request/data/approval_threshold_data.xml`.
-
----
+   `retail_purchase_request/data/approval_threshold_data.xml`.
 
 ---
 

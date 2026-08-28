@@ -6,8 +6,9 @@
 
 [options]
 
-; Append the repository's addons directory to your existing addons_path.
-addons_path = /path/to/odoo/addons,/path/to/Retail/addons
+; Append the repository itself to your existing addons_path: the modules
+; live at the repository root, not in a subdirectory.
+addons_path = /path/to/odoo/addons,/path/to/Retail
 
 db_host = localhost
 db_port = 5432
