@@ -17,10 +17,22 @@ class PosPayment(models.Model):
 
     @api.model
     def _load_pos_data_fields(self, config_id):
+        """Add the receipt reference to the POS payload, safely.
+
+        An EMPTY list here does not mean "no fields" -- Odoo's read() treats
+        an empty field list as "every field", which is what core pos.payment
+        relies on. Appending to it would narrow the payload to just the names
+        added, stripping pos_order_id and amount, and the payment screen would
+        then crash on every payment method with pos_order_id undefined.
+
+        So only extend an explicit list; leave "load everything" alone.
+        """
         fields_list = super()._load_pos_data_fields(config_id)
-        for name in ("retail_mpesa_receipt", "retail_mpesa_transaction_id"):
-            if name not in fields_list:
-                fields_list.append(name)
+        if not fields_list:
+            return fields_list
+        fields_list = list(fields_list)
+        if "retail_mpesa_receipt" not in fields_list:
+            fields_list.append("retail_mpesa_receipt")
         return fields_list
 
     @api.model_create_multi

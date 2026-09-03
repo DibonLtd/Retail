@@ -74,6 +74,41 @@ class TestPosMpesaFlow(MpesaPosCase):
         self.assertFalse(order.payment_ids.retail_mpesa_transaction_id)
         self.assertEqual(order.retail_mpesa_references, "NOSUCHCODE")
 
-    def test_reference_field_reaches_the_pos_front_end(self):
+    def test_pos_payment_payload_keeps_pos_order_id(self):
+        """Regression: the payment screen dies without pos_order_id.
+
+        Core pos.payment returns an EMPTY field list, which Odoo's read()
+        treats as "every field". An override that appends to that list turns
+        it into "only these fields", stripping pos_order_id -- and then
+        set_amount raises "Cannot read properties of undefined (reading
+        'assert_editable')" on every payment method, not just M-PESA.
+
+        This asserts the payload itself rather than the field list, because
+        the field list is exactly what misled the original test.
+        """
         loaded = self.env["pos.payment"]._load_pos_data_fields(self.config.id)
-        self.assertIn("retail_mpesa_receipt", loaded)
+        session = self._open_session()
+        order = self._order_with_payments(
+            session, [(self.method_cash, 280.0, None)], 280.0
+        )
+        payload = order.payment_ids.read(loaded, load=False)[0]
+
+        for required in ("pos_order_id", "payment_method_id", "amount"):
+            self.assertIn(
+                required,
+                payload,
+                "%s must reach the POS or the payment screen crashes" % required,
+            )
+        self.assertIn(
+            "retail_mpesa_receipt",
+            payload,
+            "The receipt reference must reach the POS for the printed receipt.",
+        )
+
+    def test_payment_method_payload_keeps_core_fields(self):
+        """The same trap on pos.payment.method, which returns an explicit list."""
+        loaded = self.env["pos.payment.method"]._load_pos_data_fields(self.config.id)
+        self.assertIn("id", loaded)
+        self.assertIn("name", loaded)
+        self.assertIn("is_cash_count", loaded)
+        self.assertIn("retail_mpesa_config_id", loaded)

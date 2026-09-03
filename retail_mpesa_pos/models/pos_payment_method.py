@@ -30,6 +30,12 @@ class PosPaymentMethod(models.Model):
         never open the M-PESA popup.
         """
         fields_list = super()._load_pos_data_fields(config_id)
+        # An empty list means "every field" to Odoo's read(); narrowing it
+        # would strip the fields the payment screen needs. Core returns an
+        # explicit list here, but guard anyway.
+        if not fields_list:
+            return fields_list
+        fields_list = list(fields_list)
         for name in ("retail_mpesa_config_id", "retail_mpesa_allow_stk"):
             if name not in fields_list:
                 fields_list.append(name)
