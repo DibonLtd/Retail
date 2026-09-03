@@ -87,9 +87,9 @@ class TestPosMpesaFlow(MpesaPosCase):
         the field list is exactly what misled the original test.
         """
         loaded = self.env["pos.payment"]._load_pos_data_fields(self.config.id)
-        session = self._open_session()
+        # setUp already opened a session; Odoo allows only one per config.
         order = self._order_with_payments(
-            session, [(self.method_cash, 280.0, None)], 280.0
+            self.session, [(self.method_cash, 280.0, None)], 280.0
         )
         payload = order.payment_ids.read(loaded, load=False)[0]
 
